@@ -1,7 +1,7 @@
 package gamelogic
 
 import (
-	"../printer"
+	"github.com/afa7789/SnakeWent/printer"
 )
 
 type position struct{
@@ -28,7 +28,6 @@ type gameState struct{
 
 // First Logic
 func FirstLogic() {
-	
 	printer.HelloWorld()
 	printer.snakeNodePrint()
 }
