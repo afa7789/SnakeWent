@@ -10,7 +10,7 @@ How the old game was:
 
 </center>
 
-:exclamation: :warning: Disclaimer: This go code is not supposed to be completely like the above.
+:exclamation: :warning: Disclaimer: This go code is not supposed to behave like the above. it is a gif of the older game
 
 ## Running
 
