@@ -12,8 +12,8 @@ func HelloWorld() {
 //Testing function used to learn more, this was changed while developing
 func TestAscii() {
 
-	const size int = 7
-	charArray := [size]int{'█','╔','╚','╗','╝','═','║'} 
+	const size int = 8
+	charArray := [size]int{'█','▒','╔','╚','╗','╝','═','║'} 
 
 	for d := 0; d < size; d++ {
 		fmt.Printf("%v - ",charArray[d])
@@ -22,6 +22,7 @@ func TestAscii() {
 
 	/*	
 		9608 - █
+		9618 - ▒
 		9556 - ╔
 		9562 - ╚
 		9559 - ╗
