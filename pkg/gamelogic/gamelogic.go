@@ -25,8 +25,18 @@ type gameState struct {
 	snakeStart  *snakeNode // position of the snakeHead
 }
 
+func snakeNodePrint(node *snakeNode){
+	
+	stringForPrint := ""
+	stringForPrint += "Name: " + node.name + "\n"
+	stringForPrint += "X: " + node.name + "\n"
+	stringForPrint += "Y: " + node.name + "\n"
+
+	printer.PrintString(stringForPrint)
+}
+
 // First Logic
 func FirstLogic() {
 	printer.HelloWorld()
-	printer.SnakeNodePrint()
+	snakeNodePrint()
 }

@@ -31,6 +31,6 @@ func TestAscii() {
 	}
 }
 
-func SnakeNodePrint(){
-	
+func PrintString( str string ){
+	fmt.Printf(str);
 }
