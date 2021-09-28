@@ -7,6 +7,11 @@ import (
 // Hello World, é uma função de Teste para testar blibioteca.
 func HelloWorld() {
 	fmt.Println("This is Snake Went a dubious quality game\n")
+
+}
+
+func checkCharacter( i int ){
+	fmt.Printf("%v - %s \n",i,string(i));
 }
 
 /*
@@ -18,6 +23,9 @@ func HelloWorld() {
 	9565 - ╝
 	9552 - ═
 	9553 - ║
+	9671 - ◇
+	183 - ·
+	9708 - ◬
 */
 //Testing function used to learn more, this was changed while developing
 func TestAscii() {
@@ -26,9 +34,13 @@ func TestAscii() {
 	charArray := [size]int{'█', '▒', '╔', '╚', '╗', '╝', '═', '║'}
 
 	for d := 0; d < size; d++ {
-		fmt.Printf("%v - ", charArray[d])
-		fmt.Println(string(charArray[d]))
+		checkCharacter(charArray[d])
+		// fmt.Printf("%v - ", charArray[d])
+		// fmt.Println(string(charArray[d]))
 	}
+
+	// fmt.Printf("%v",int('◬'));
+	// checkCharacter('◬')
 }
 
 func PrintString( str string ){

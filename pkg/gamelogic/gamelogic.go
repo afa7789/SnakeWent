@@ -41,17 +41,19 @@ func (g *gameState) Print(){
 
 }
 
-//
-/*	
-	9608 - █
-	9618 - ▒
-	9556 - ╔
-	9562 - ╚
-	9559 - ╗
-	9565 - ╝
-	9552 - ═
-	9553 - ║
-*/
+const ( // this are used to drawn the board
+	rectangle = 9608		//	9608 - █ , place occupied
+	meshRectangle = 9618	//	9618 - ▒ , the conflict (die drawing)
+	dot = 183 				//	0183 - · , empty space
+	diamondEmpty = 9671		// 	9671 - ◇ , stuff to eat
+	// borders
+	cornerUpRight = 9559	//	9559 - ╗ 
+	cornerDownRight = 9565	//	9565 - ╝
+	cornerUpLeft = 9556 	//	9556 - ╔
+	cornerDownLeft = 9562 	//	9562 - ╚
+	cornerHorizontal = 9552 //	9552 - ═
+	cornerVertical = 9553  	//	9553 - ║
+)
 
 // First Logic
 func FirstLogic() {
@@ -59,7 +61,7 @@ func FirstLogic() {
 
 	var board *[][]int
 
-	board = &[][]int{{9556,9552,9559},{9553,183,9553},{9562,9552,9565}}
+	board = &[][]int{{9556,9552,9552,9552,9559},{9553,183,183,183,9553},{9553,183,183,183,9553},{9553,183,183,183,9553},{9562,9552,9552,9552,9565}}
 
 	var n = node{
 		name: "Arthur",
