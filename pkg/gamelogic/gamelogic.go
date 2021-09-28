@@ -2,6 +2,7 @@ package gamelogic
 
 import (
 	"github.com/afa7789/SnakeWent/pkg/printer"
+	"strconv"
 )
 
 type position struct {
@@ -9,27 +10,27 @@ type position struct {
 }
 
 type node struct {
-	name     string
-	pos position
-	nextNode *node
+	name     string // being used for testing purposes
+	pos position    // position X Y
+	nextNode *node  // next node
 }
 
 type gameState struct {
 	board       *[][]int
-	height      int //board height
-	width       int //board width
-	score       int //game score ( number of fruits eaten + something )
-	round       int //actual round number ( numer of iterations )
-	snakeLength int // length of the snake ( baselength + number of eaten stuff)
-	snakeHead   position
-	snakeStart  *node // position of the snakeHead
+	height      int 		// board height
+	width       int 		// board width
+	score       int 		// game score ( number of fruits eaten + something )
+	round       int 		// actual round number ( numer of iterations )
+	snakeLength int 		// length of the snake ( baselength + number of eaten stuff)
+	snakeHead   position	// position of the snakeHead
+	snakeStart  *node 		// nodeList of snake
 }
 
 func (n *node) Print(){
 	stringForPrint := "Node print"
 	stringForPrint += "Name: " + n.name + "\n"
-	stringForPrint += "X: " + string(n.pos.X) + "\n"
-	stringForPrint += "Y: " + string(n.pos.Y) + "\n"
+	stringForPrint += "X: " + strconv.Itoa(n.pos.X) + "\n"
+	stringForPrint += "Y: " + strconv.Itoa(n.pos.Y) + "\n"
 
 	printer.PrintString(stringForPrint)
 }
@@ -55,14 +56,7 @@ const ( // this are used to drawn the board
 	cornerVertical = 9553  	//	9553 - ║
 )
 
-// First Logic
-func FirstLogic() {
-	printer.HelloWorld()
-
-	var board *[][]int
-
-	board = &[][]int{{9556,9552,9552,9552,9559},{9553,183,183,183,9553},{9553,183,183,183,9553},{9553,183,183,183,9553},{9562,9552,9552,9552,9565}}
-
+func nodeTesting(){
 	var n = node{
 		name: "Arthur",
 		pos: position{
@@ -73,6 +67,19 @@ func FirstLogic() {
 	} 
 
 	n.Print();
+}
+
+func boardTesting(){
+	var board *[][]int
+
+	board = &[][]int{{9556,9552,9552,9552,9559},{9553,183,183,183,9553},{9553,183,183,183,9553},{9553,183,183,183,9553},{9562,9552,9552,9552,9565}}
 
 	printer.PrintSignedIntTwoDimensionsArray( board ) 
+}
+
+// First Logic
+func FirstLogic() {
+	printer.HelloWorld()
+
+
 }
