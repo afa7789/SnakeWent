@@ -9,6 +9,17 @@ func HelloWorld() {
 	fmt.Println("Hello World")
 }
 
+
+/*	
+	9608 - █
+	9618 - ▒
+	9556 - ╔
+	9562 - ╚
+	9559 - ╗
+	9565 - ╝
+	9552 - ═
+	9553 - ║
+*/
 //Testing function used to learn more, this was changed while developing
 func TestAscii() {
 
@@ -19,15 +30,6 @@ func TestAscii() {
 		fmt.Printf("%v - ",charArray[d])
 		fmt.Println(string(charArray[d]))
 	}
-
-	/*	
-		9608 - █
-		9618 - ▒
-		9556 - ╔
-		9562 - ╚
-		9559 - ╗
-		9565 - ╝
-		9552 - ═
-		9553 - ║
-	*/
 }
+
+func snakeNodePrint()
