@@ -1,8 +1,8 @@
 package main
 
-import "github.com/afa7789/SnakeWent/pkg/printer"
+import "github.com/afa7789/SnakeWent/pkg/gamelogic"
 
 func main() {
-	printer.TestAscii()
+	gamelogic.FirstLogic()
 	// Game Logic
 }

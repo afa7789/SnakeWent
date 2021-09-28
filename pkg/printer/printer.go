@@ -6,7 +6,7 @@ import (
 
 // Hello World, é uma função de Teste para testar blibioteca.
 func HelloWorld() {
-	fmt.Println("Hello World")
+	fmt.Println("This is Snake Went a dubious quality game\n")
 }
 
 /*
@@ -33,4 +33,13 @@ func TestAscii() {
 
 func PrintString( str string ){
 	fmt.Printf(str);
+}
+
+func PrintSignedIntTwoDimensionsArray( sample * [][]int  ){
+    for _, row := range *sample {
+        for _, val := range row {
+            fmt.Print(val)
+        }
+		fmt.Printf("\n")
+    }
 }

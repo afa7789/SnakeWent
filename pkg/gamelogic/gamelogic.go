@@ -8,10 +8,10 @@ type position struct {
 	X, Y int
 }
 
-type snakeNode struct {
+type node struct {
 	name     string
-	snakePos position
-	nextNode *snakeNode
+	pos position
+	nextNode *node
 }
 
 type gameState struct {
@@ -22,21 +22,43 @@ type gameState struct {
 	round       int //actual round number ( numer of iterations )
 	snakeLength int // length of the snake ( baselength + number of eaten stuff)
 	snakeHead   position
-	snakeStart  *snakeNode // position of the snakeHead
+	snakeStart  *node // position of the snakeHead
 }
 
-func snakeNodePrint(node *snakeNode){
-	
-	stringForPrint := ""
-	stringForPrint += "Name: " + node.name + "\n"
-	stringForPrint += "X: " + node.name + "\n"
-	stringForPrint += "Y: " + node.name + "\n"
+func (n *node) Print(){
+	stringForPrint := "Node print"
+	stringForPrint += "Name: " + n.name + "\n"
+	stringForPrint += "X: " + n.name + "\n"
+	stringForPrint += "Y: " + n.name + "\n"
 
 	printer.PrintString(stringForPrint)
+}
+
+
+func (g *gameState) Print(){
+
+	printer.PrintSignedIntTwoDimensionsArray( g.board )
+
 }
 
 // First Logic
 func FirstLogic() {
 	printer.HelloWorld()
-	snakeNodePrint()
+
+	var board *[][]int
+
+	board = &[][]int{{1,22,2},{2,},{3,}}
+
+	var n = node{
+		name: "Arthur",
+		pos: position{
+			X:0,
+			Y:0,
+		},
+		nextNode: nil,
+	} 
+
+	n.Print();
+
+	printer.PrintSignedIntTwoDimensionsArray( board ) 
 }
