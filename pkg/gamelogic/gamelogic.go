@@ -76,18 +76,28 @@ func nodeTesting(){
 	n.Print();
 }
 
+// fillBorders changes int from board state to empty board
 func fillBorders(){
-
+   // fill borders , 
 }
 
+// fillEmptyDots, changes int from board state to empty board
 func fillEmptyDots(){
-
+	// fill everything that's not border
 }
 
+// delete a node from a food node list.
+func deleteFood(){
+	// receives node, 
+	// not sure ask question
+}
+
+// fillWithCharacterFromNode, reutilization of code
 func fillWithCharacterFromNode(){
 	//genericFunction to be used on fillFood and fillSnake
 }
 
+// fillFood, Change int on board for foods and check if adds more.
 func fillFood(){
 	// check round number to see if can add one more food
 
@@ -96,12 +106,14 @@ func fillFood(){
 	// change node pointer to next one.
 }
 
+// fillSnake, Change int on board for snake int
 func fillSnake(){
 	// while node != nil
 	// receive node , check it's position and change the gameboard Character to the snake one.
 	// change node pointer to next node
 }
 
+// receivePosition, receives from keyboard key arrow and returns new pos for game state.
 func receivePosition() position{
 	return position{
 		X: 0,
