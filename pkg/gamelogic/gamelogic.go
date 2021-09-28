@@ -28,8 +28,8 @@ type gameState struct {
 func (n *node) Print(){
 	stringForPrint := "Node print"
 	stringForPrint += "Name: " + n.name + "\n"
-	stringForPrint += "X: " + n.name + "\n"
-	stringForPrint += "Y: " + n.name + "\n"
+	stringForPrint += "X: " + string(n.pos.X) + "\n"
+	stringForPrint += "Y: " + string(n.pos.Y) + "\n"
 
 	printer.PrintString(stringForPrint)
 }
@@ -41,19 +41,31 @@ func (g *gameState) Print(){
 
 }
 
+//
+/*	
+	9608 - █
+	9618 - ▒
+	9556 - ╔
+	9562 - ╚
+	9559 - ╗
+	9565 - ╝
+	9552 - ═
+	9553 - ║
+*/
+
 // First Logic
 func FirstLogic() {
 	printer.HelloWorld()
 
 	var board *[][]int
 
-	board = &[][]int{{1,22,2},{2,},{3,}}
+	board = &[][]int{{9556,9552,9559},{9553,183,9553},{9562,9552,9565}}
 
 	var n = node{
 		name: "Arthur",
 		pos: position{
-			X:0,
-			Y:0,
+			X: 0,
+			Y: 0,
 		},
 		nextNode: nil,
 	} 
