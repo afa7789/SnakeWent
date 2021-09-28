@@ -9,8 +9,7 @@ func HelloWorld() {
 	fmt.Println("Hello World")
 }
 
-
-/*	
+/*
 	9608 - █
 	9618 - ▒
 	9556 - ╔
@@ -24,10 +23,10 @@ func HelloWorld() {
 func TestAscii() {
 
 	const size int = 8
-	charArray := [size]int{'█','▒','╔','╚','╗','╝','═','║'} 
+	charArray := [size]int{'█', '▒', '╔', '╚', '╗', '╝', '═', '║'}
 
 	for d := 0; d < size; d++ {
-		fmt.Printf("%v - ",charArray[d])
+		fmt.Printf("%v - ", charArray[d])
 		fmt.Println(string(charArray[d]))
 	}
 }
