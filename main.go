@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	printer.HelloWorld()
+	printer.TestAscii()
+	// Game Logic	
 }

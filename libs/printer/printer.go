@@ -9,6 +9,7 @@ func HelloWorld() {
 	fmt.Println("Hello World")
 }
 
-func PrintOther() {
-	fmt.Println("Hello World")
+func TestAscii() {
+	ascBlock := string(219)
+	fmt.Println(ascBlock)
 }
