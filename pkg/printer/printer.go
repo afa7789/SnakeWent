@@ -32,4 +32,6 @@ func TestAscii() {
 	}
 }
 
-func snakeNodePrint()
+func SnakeNodePrint(){
+	
+}
