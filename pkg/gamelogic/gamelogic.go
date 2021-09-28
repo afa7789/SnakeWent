@@ -5,6 +5,20 @@ import (
 	"strconv"
 )
 
+const ( // this are used to drawn the board
+	rectangle = 9608		//	9608 - █ , place occupied
+	meshRectangle = 9618	//	9618 - ▒ , the conflict (die drawing)
+	dot = 183 				//	0183 - · , empty space
+	diamondEmpty = 9671		// 	9671 - ◇ , stuff to eat
+	// borders
+	cornerUpRight = 9559	//	9559 - ╗ 
+	cornerDownRight = 9565	//	9565 - ╝
+	cornerUpLeft = 9556 	//	9556 - ╔
+	cornerDownLeft = 9562 	//	9562 - ╚
+	cornerHorizontal = 9552 //	9552 - ═
+	cornerVertical = 9553  	//	9553 - ║
+)
+
 type position struct {
 	X, Y int
 }
@@ -15,6 +29,11 @@ type node struct {
 	nextNode *node  // next node
 }
 
+type nodeList struct{
+	firstNode *node // first node for quicker access
+	lastNode  *node  // last node for quicker access
+}
+
 type gameState struct {
 	board       *[][]int
 	height      int 		// board height
@@ -23,7 +42,8 @@ type gameState struct {
 	round       int 		// actual round number ( numer of iterations )
 	snakeLength int 		// length of the snake ( baselength + number of eaten stuff)
 	snakeHead   position	// position of the snakeHead
-	snakeStart  *node 		// nodeList of snake
+	snakeStart  *nodeList 		// nodeList of snake
+	food *nodeList
 }
 
 func (n *node) Print(){
@@ -42,19 +62,6 @@ func (g *gameState) Print(){
 
 }
 
-const ( // this are used to drawn the board
-	rectangle = 9608		//	9608 - █ , place occupied
-	meshRectangle = 9618	//	9618 - ▒ , the conflict (die drawing)
-	dot = 183 				//	0183 - · , empty space
-	diamondEmpty = 9671		// 	9671 - ◇ , stuff to eat
-	// borders
-	cornerUpRight = 9559	//	9559 - ╗ 
-	cornerDownRight = 9565	//	9565 - ╝
-	cornerUpLeft = 9556 	//	9556 - ╔
-	cornerDownLeft = 9562 	//	9562 - ╚
-	cornerHorizontal = 9552 //	9552 - ═
-	cornerVertical = 9553  	//	9553 - ║
-)
 
 func nodeTesting(){
 	var n = node{
@@ -67,6 +74,59 @@ func nodeTesting(){
 	} 
 
 	n.Print();
+}
+
+func fillBorders(){
+
+}
+
+func fillEmptyDots(){
+
+}
+
+func fillWithCharacterFromNode(){
+	//genericFunction to be used on fillFood and fillSnake
+}
+
+func fillFood(){
+	// check round number to see if can add one more food
+
+	// receive a node with foods
+	// while node != nil check it's position to the food one
+	// change node pointer to next one.
+}
+
+func fillSnake(){
+	// while node != nil
+	// receive node , check it's position and change the gameboard Character to the snake one.
+	// change node pointer to next node
+}
+
+func receivePosition() position{
+	return position{
+		X: 0,
+		Y: 0,
+	}
+}
+
+// moveSnake receives nodeHead and it's next position, than call the subsequent nodes 
+// with the actual position of it's parent for change.
+func moveSnake(){
+	// checks if node pointer is nill,, return empty if it is
+	// call this function for the next node with actual position
+	// change the actual position for next position.
+}
+
+func hasEaten() bool{
+	return false
+}
+
+func addFood() bool{
+	return false
+}
+
+func checkBorderHit(i ,j,width,height int) bool{
+	return false
 }
 
 func boardTesting(){
