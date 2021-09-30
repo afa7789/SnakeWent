@@ -35,15 +35,15 @@ type nodeList struct{
 }
 
 type gameState struct {
-	board       *[][]int
-	height      int 		// board height
-	width       int 		// board width
-	score       int 		// game score ( number of fruits eaten + something )
-	round       int 		// actual round number ( numer of iterations )
-	snakeLength int 		// length of the snake ( baselength + number of eaten stuff)
-	snakeHead   position	// position of the snakeHead
+	board       *[][]int		// board 2d array
+	height      int 			// board height
+	width       int 			// board width
+	score       int 			// game score ( number of fruits eaten + something )
+	round       int 			// actual round number ( numer of iterations )
+	snakeLength int 			// length of the snake ( baselength + number of eaten stuff)
+	snakeHead   position		// position of the snakeHead
 	snakeStart  *nodeList 		// nodeList of snake
-	food *nodeList
+	food *nodeList				// nodeList of food
 }
 
 func (n *node) Print(){
@@ -55,13 +55,36 @@ func (n *node) Print(){
 	printer.PrintString(stringForPrint)
 }
 
-
 func (g *gameState) Print(){
 
 	printer.PrintSignedIntTwoDimensionsArray( g.board )
 
 }
 
+
+func createNode(s string, x,y int, n &node){
+	return *node{
+		name: s,
+		pos: position{
+			X: x,
+			Y: y,
+		},
+		nextNode: n,
+	}
+}
+
+func createNodeList(n1 &node,n2 &node){
+	return nodeList{
+		firstNode:n1,
+		lastNode:n2,
+	}
+}
+
+func (n *node) changeNextNode(w &node){
+	var previousNode *node = n.nextNode;
+	n.nextNode = w;
+	return previousNode;
+}
 
 func nodeTesting(){
 	var n = node{
@@ -74,6 +97,14 @@ func nodeTesting(){
 	} 
 
 	n.Print();
+}
+
+// nodeListTesting is created to make sure list
+func nodeListTesting(){
+	var n1 = createNode("Snake1",0,0,nil)
+	var n2 = createNode("Snake2",0,0,nil)
+	n1.changeNextNode(&n2);
+	var nl = 
 }
 
 // fillBorders changes int from board state to empty board
