@@ -61,7 +61,6 @@ func (g *gameState) Print(){
 
 }
 
-
 func createNode(s string, x,y int, n &node){
 	return *node{
 		name: s,
@@ -73,14 +72,14 @@ func createNode(s string, x,y int, n &node){
 	}
 }
 
-func createNodeList(n1 &node,n2 &node){
+func createNodeList(n1 *node,n2 *node){
 	return nodeList{
 		firstNode:n1,
 		lastNode:n2,
 	}
 }
 
-func (n *node) changeNextNode(w &node){
+func (n *node) changeNextNode(w *node){
 	var previousNode *node = n.nextNode;
 	n.nextNode = w;
 	return previousNode;
@@ -103,8 +102,8 @@ func nodeTesting(){
 func nodeListTesting(){
 	var n1 = createNode("Snake1",0,0,nil)
 	var n2 = createNode("Snake2",0,0,nil)
-	n1.changeNextNode(&n2);
-	var nl = 
+	n1.changeNextNode(&n2)
+	var nl = createNodeList(&n1,&n2)
 }
 
 // fillBorders changes int from board state to empty board
