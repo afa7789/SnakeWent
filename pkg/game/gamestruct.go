@@ -5,7 +5,6 @@ import (
 	"strconv"
 )
 
-
 const ( // this are used to drawn the board
 	rectangle = 9608		//	9608 - █ , place occupied
 	meshRectangle = 9618	//	9618 - ▒ , the conflict (die drawing)
