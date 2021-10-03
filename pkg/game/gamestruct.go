@@ -42,8 +42,8 @@ type gameState struct {
 	round       int 			// actual round number ( numer of iterations )
 	snakeLength int 			// length of the snake ( baselength + number of eaten stuff)
 	snakeHead   position		// position of the snakeHead
-	snakeStart  nodeList 		// nodeList of snake
-	food nodeList				// nodeList of food
+	snakeList  nodeList 		// nodeList of snake
+	foodList nodeList				// nodeList of food
 }
 
 // GAME STATE
@@ -85,7 +85,7 @@ func createNodeList(n1 *node,n2 *node) nodeList{
 }
 
 // delete a node from a food node list.
-func deleteNode(nl nodeList,n *node){
+func deleteNodeWithEqualPos(nl nodeList,n *node){
 	// receives node, 
 	var n_iter = nl.firstNode
 
