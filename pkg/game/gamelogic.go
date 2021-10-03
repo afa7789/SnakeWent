@@ -16,11 +16,16 @@ func moveSnake(){
 	// change the actual position for next position.
 }
 
-func hasEaten() bool{
-	// check if next position is one of the foods position, if it is increase snake size 
+func hasEaten( next_p , actual_p position , fs nodeList ) bool{
+	// check if next position is one of the foods position
+	// remove food Node
+	return false
+}
+
+func increaseSnakeSize(){
+	// if it is increase snake size 
 	// and add a node to it's last node.
 	// change last node to new last node.
-	return false
 }
 
 func addFood() bool{
@@ -43,11 +48,39 @@ func checkBorderHit(i ,j,width,height int) bool{
 	return false
 }
 
+func checkIfNextPositionIsOK() bool{
+	return false
+}
+
 func roundEnding(){
 	// increase score for one more round, or print game end state.
 	// not sure what else
 }
 
-func roundIteration(){
-	// escrever a rotina de funcionamento do turno aqui
+func (g gameState) roundIteration() bool{
+	// receive position
+	pos := receivePosition();
+	// see if has eaten, grow snake if eaten
+	if ( hasEaten( pos, g.snakeHead , g.food ) ){
+		increaseSnakeSize()
+	}
+	// move snake
+	moveSnake()
+
+	r := false
+	// check if it's a valid position.
+	// not snake body, not wall
+	if ( checkIfNextPositionIsOK() ){
+	// if ok , go next round
+		roundEnding()
+		r = true
+	}else{
+		r = false
+	}
+
+	// if not ok, end game.
+	// draw 
+	fillAll()
+
+	return r
 }

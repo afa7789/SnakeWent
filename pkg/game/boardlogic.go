@@ -30,3 +30,7 @@ func fillSnake(){
 	// receive node , check it's position and change the gameboard Character to the snake one.
 	// change node pointer to next node
 }
+
+func fillAll(){
+
+}
