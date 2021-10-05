@@ -138,3 +138,7 @@ func createGameState() gameState{
 		foodList: nl2,
 	}
 }
+
+func intToString(i int) string{
+	return strconv.Itoa(i)
+}

@@ -84,15 +84,20 @@ func hasEaten( p position , fs nodeList ) bool{
 	return has_haten
 }
 
-func increaseSnakeSize(){
-	// if it is increase snake size 
-	// and add a node to it's last node.
-	// change last node to new last node.
+// IncreaseSnakeSize
+// if it is increase snake size 
+// and add a node to it's last node.
+// change last node to new last node.
+func increaseSnakeSize(pInt * int, snakeList * nodeList){
+	*pInt += 1;
+	str := "Snake"+intToString(*pInt);
+	n := createNode(str,0,0,nil)
+	snakeList.lastNode.nextNode = n
+	snakeList.lastNode = n
 }
 
-func addFood() bool{
+func addFood() {
 	// add a food to the nodeList of foods.
-	return false
 }
 
 func headIsReturning() bool{
@@ -124,7 +129,7 @@ func (g gameState) roundIteration() bool{
 	pos := receivePosition(g.snakeHead,g.snakeList.firstNode.nextNode.pos); // new position
 	// see if has eaten, grow snake if eaten
 	if hasEaten( pos, g.foodList ) {
-		increaseSnakeSize()
+		increaseSnakeSize(&g.snakeLength,&g.snakeList)
 	}
 	// move snake
 	moveSnake(g.snakeList.firstNode,pos)
