@@ -93,7 +93,7 @@ func deleteNodeWithEqualPos(nl nodeList,n *node){
 
 	for ;n_iter !=nil;n_iter = n_iter.nextNode {
 		// comparar node
-		if( n_iter == n){
+		if n_iter == n{
 			break
 		}
 		n_previous = n_iter

@@ -1,13 +1,31 @@
 package game
 
-import(
-	"os"
-    "os/exec"
-	"fmt"
-)
-
 // receivePosition, receives from keyboard key arrow and returns new pos for game state.
 func receivePosition(actual_pos,p_node_after_head position) position{
+
+	// ver direção que está , x1 cabeça, x2 nodo seguinte
+	// baixo x1 - x2 = 0 , y1 - y2 = -1
+	// cima x1 - x2 = 0, y1 - y2 = 1
+	// esquerda x1 - x2 = 1 , y1 - y2 = 0
+	// direita x1 - x2 = -1 , y1 - y2 = 0
+	x_diff := actual_pos.X - p_node_after_head.X
+	y_diff := actual_pos.Y - p_node_after_head.Y
+
+	var reject_actual_dir int
+
+	if x_diff == 1{
+		reject_actual_dir = ARROW_RIGHT
+	}else if x_diff == -1{
+		reject_actual_dir = ARROW_LEFT
+	}else if y_diff == 1{
+		reject_actual_dir = ARROW_DOWN
+	}else if y_diff == -1{
+		reject_actual_dir = ARROW_UP
+	}
+
+	var received int = receiveInput(reject_actual_dir)
+
+	
 
 	return position{
 		X: 0,
@@ -19,7 +37,7 @@ func receivePosition(actual_pos,p_node_after_head position) position{
 // with the actual position of it's parent for change.
 func moveSnake(n *node,p position) {
 	// checks if node pointer is nill,, return empty if it is
-	if (n == nil ){
+	if n == nil {
 		return
 	}
 	// call this function for the next node with actual position
@@ -37,7 +55,7 @@ func hasEaten( p position , fs nodeList ) bool{
 
 	for ;n_iter !=nil;n_iter = n_iter.nextNode {
 		// check if next position is one of the foods position
-		if( n_iter.pos == p){
+		if n_iter.pos == p {
 			has_haten = true
 			break
 		}
@@ -45,7 +63,7 @@ func hasEaten( p position , fs nodeList ) bool{
 	}
 
 	//has eaten is true, than delete the node from the list
-	if(has_haten){
+	if has_haten {
 		// remove food Node
 		n_previous.nextNode = n_iter.nextNode
 	}
@@ -65,7 +83,7 @@ func addFood() bool{
 	return false
 }
 
-func headIsReturning( ,) bool{
+func headIsReturning() bool{
 	// check next node from head position , if it's the same from next, if it is can't allow it for next pos.
 	return false
 }
@@ -93,7 +111,7 @@ func (g gameState) roundIteration() bool{
 	// receive position
 	pos := receivePosition(g.snakeHead,g.snakeList.firstNode.nextNode.pos); // new position
 	// see if has eaten, grow snake if eaten
-	if ( hasEaten( pos, g.foodList ) ){
+	if hasEaten( pos, g.foodList ) {
 		increaseSnakeSize()
 	}
 	// move snake
@@ -104,7 +122,7 @@ func (g gameState) roundIteration() bool{
 
 	// check if it's a valid position.
 	// not snake body, not wall
-	if ( checkIfNextPositionIsOK() ){
+	if checkIfNextPositionIsOK() {
 	// if ok , go next round
 		roundEnding()
 		r = true

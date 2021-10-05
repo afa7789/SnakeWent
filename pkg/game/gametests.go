@@ -22,7 +22,8 @@ func nodeListTesting(){
 	n1.changeNextNode(n2)
 	var nl = createNodeList(n1,n2)
 	// for e print TODO
-	print(nl)
+	nl.print()
+	// print(nl)
 }
 
 
