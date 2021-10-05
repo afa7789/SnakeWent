@@ -123,7 +123,7 @@ func createGameState() gameState{
 	nl1 := createNodeList(nil,nil)
 	nl2 := createNodeList(nil,nil)
 
-	var g = gameState{
+	return gameState{
 		board : nil,
 		height: 0,
 		width:  0,
@@ -137,6 +137,4 @@ func createGameState() gameState{
 		snakeList: nl1,
 		foodList: nl2,
 	}
-	
-	return g
 }
