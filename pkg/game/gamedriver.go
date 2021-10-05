@@ -1,7 +1,8 @@
 package game
 
-newGame() {
-    initTerm()
+func NewGame() {
+    // initTerm()
 	g := createGameState()
+	g.Print()
 }
 

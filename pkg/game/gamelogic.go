@@ -26,10 +26,21 @@ func receivePosition(actual_pos,p_node_after_head position) position{
 	// doesn't allow going to previous position, and receive next one
 	var received int = receiveInput(reject_actual_dir)
 
-	//returns new position with addon/subtraction
+	// new position reproposition
+	if received == ARROW_LEFT {
+		actual_pos.X += 1
+	}else if received == ARROW_RIGHT {
+		actual_pos.X -= 1
+	}else if received == ARROW_UP{
+		actual_pos.Y += 1
+	}else if received == ARROW_DOWN{
+		actual_pos.Y -= 1
+	}
+
+	// returns new position with addon/subtraction
 	return position{
-		X: actual_pos.X + ( received == ARROW_LEFT ? 1 : 0) + ( received == ARROW_RIGHT ? -1 : 0),
-		Y: actual_pos.Y + ( received == ARROW_UP ? 1 : 0) + ( received == ARROW_DOWN ? -1 : 0),
+		X: actual_pos.X ,
+		Y: actual_pos.Y ,
 	}
 }
 

@@ -1,8 +1,9 @@
 package main
 
-import "github.com/afa7789/SnakeWent/pkg/gamelogic"
+import "github.com/afa7789/SnakeWent/pkg/game"
 
 func main() {
-	gamelogic.FirstLogic()
 	// Game Logic
+	game.FirstLogic()
+	game.NewGame()
 }

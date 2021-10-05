@@ -19,21 +19,25 @@ const ( // this are used to drawn the board
 	cornerVertical = 9553  	//	9553 - ║
 )
 
+// x,y pos struct
 type position struct {
 	X, Y int
 }
 
+// node struct, with name, pos and next node
 type node struct {
 	name     string // being used for testing purposes
 	pos position    // position X Y
 	nextNode *node  // next node
 }
 
+// last node and first node
 type nodeList struct{
 	firstNode *node // first node for quicker access
 	lastNode  *node  // last node for quicker access
 }
 
+//gamestate variables and others
 type gameState struct {
 	board       *[][]int		// board 2d array
 	height      int 			// board height
@@ -49,6 +53,10 @@ type gameState struct {
 // GAME STATE
 // print game state boards
 func (g *gameState) Print(){
+	stringForPrint := "Node print"
+	stringForPrint += "Height: " + g.height + "Width: " + g.width + "\n"
+	stringForPrint += "Score: " + g.score + "Width: " + g.round + "\n"
+	printer.PrintString(stringForPrint)
 	printer.PrintSignedIntTwoDimensionsArray( g.board )
 }
 
