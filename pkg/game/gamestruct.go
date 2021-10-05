@@ -53,11 +53,11 @@ type gameState struct {
 // GAME STATE
 // print game state boards
 func (g *gameState) Print(){
-	stringForPrint := "Node print"
-	stringForPrint += "Height: " + g.height + "Width: " + g.width + "\n"
-	stringForPrint += "Score: " + g.score + "Width: " + g.round + "\n"
+	stringForPrint := "Game State\n"
+	stringForPrint += "Height: " + strconv.Itoa(g.height) + " - Width: " + strconv.Itoa(g.width) + "\n"
+	stringForPrint += "Score: " + strconv.Itoa(g.score) + " - Width: " + strconv.Itoa(g.round) + "\n"
 	printer.PrintString(stringForPrint)
-	printer.PrintSignedIntTwoDimensionsArray( g.board )
+	// printer.PrintSignedIntTwoDimensionsArray( g.board )
 }
 
 ///NODE FUNCTIONS
@@ -118,19 +118,25 @@ func (n *node) changeNextNode(w *node) *node{
 }
 
 // this returns an zeroed gameState
-func createGameSate() gameState{
+func createGameState() gameState{
+
+	nl1 := createNodeList(nil,nil)
+	nl2 := createNodeList(nil,nil)
+
 	var g = gameState{
-		board : nil
-		height      0 			// board height
-		width       0 			// board width
-		score       0 			// game score ( number of fruits eaten + something )
-		round       0 			// actual round number ( numer of iterations )
-		snakeLength 0 			// length of the snake ( baselength + number of eaten stuff)
-		snakeHead  : position{
-			0,0
-		}		// position of the snakeHead
-		snakeList  : nil 		// nodeList of snake
-		foodList : nil				// nodeList of food
+		board : nil,
+		height: 0,
+		width:  0,
+		score:  0,
+		round:  0,
+		snakeLength: 0,
+		snakeHead : position{
+			X: 0,
+			Y: 0,
+		},
+		snakeList: nl1,
+		foodList: nl2,
 	}
+	
 	return g
 }

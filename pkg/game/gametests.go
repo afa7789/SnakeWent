@@ -17,15 +17,18 @@ func nodeTesting(){
 
 // nodeListTesting is created to make sure list
 func nodeListTesting(){
-	var n1 = createNode("Snake1",0,0,nil)
-	var n2 = createNode("Snake2",0,0,nil)
-	n1.changeNextNode(n2)
-	var nl = createNodeList(n1,n2)
-	// for e print TODO
-	nl.print()
-	// print(nl)
-}
+	var n3 = createNode("Snake3",0,0,nil)
+	var n2 = createNode("Snake2",0,0,n3)
+	var n1 = createNode("Snake1",0,0,n2)
 
+	var nl = createNodeList(n1,n3)
+	
+	n_iter := nl.firstNode 
+
+	for ;n_iter !=nil; n_iter = n_iter.nextNode {
+		n_iter.Print()
+	}
+}
 
 func boardTesting(){
 	var board *[][]int
