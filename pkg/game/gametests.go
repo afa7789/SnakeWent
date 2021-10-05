@@ -22,7 +22,7 @@ func nodeListTesting(){
 	var n1 = createNode("Snake1",0,0,n2)
 
 	var nl = createNodeList(n1,n3)
-	
+
 	n_iter := nl.firstNode 
 
 	for ;n_iter !=nil; n_iter = n_iter.nextNode {
@@ -30,6 +30,7 @@ func nodeListTesting(){
 	}
 }
 
+// check if boardPrinting is working ok
 func boardTesting(){
 	var board *[][]int
 
