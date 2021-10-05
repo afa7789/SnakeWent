@@ -1,4 +1,3 @@
-package game
 
 import (
     "fmt"
@@ -18,28 +17,29 @@ func reset() {
 	term.Sync() // cosmestic purpose
 }
 
-func receiveInput(not_this_dir int) int {
+func initTerm(){
 	err := term.Init()
 	if err != nil {
 		panic(err)
 	}
-	defer term.Close()
-	
-	fmt.Println("Enter arrow keys, r to restart, or press ESC button to quit")
-	
-	for {
-		var key_return int = 0
+}
 
+func receiveInput(not_this_dir int) int {
+
+	fmt.Println("Enter arrow keys, r to restart, or press ESC button to quit")
+    keyPressListenerLoop: for {
+		var key_return int = 0
 		switch ev := term.PollEvent(); ev.Type {
 			case term.EventKey:
 				switch ev.Key {
 					case term.KeyEsc:
-						key_return = ESC
-						break
+    					key_return = ESC
+                        break keyPressListenerLoop
 					case term.KeyArrowUp:
 						key_return = ARROW_UP
 						break			
 					case term.KeyArrowDown:
+                        
 						key_return = ARROW_DOWN
 						break					
 					case term.KeyArrowLeft:
@@ -50,21 +50,28 @@ func receiveInput(not_this_dir int) int {
 						break
 					default:
 						if ev.Ch == 114{
-							key_return = R_KEY
+                            key_return = R_KEY
 							break
 						}else{
+                            fmt.Println("You pressed an invalid key")
 							fmt.Println("Enter arrow keys, r to restart, or press ESC button to quit")
-						}
+			    		}
 				}
 				break
 			case term.EventError:
 				panic(ev.Err)
 		}
 
-		if not_this_dir != key_return{
+		if not_this_dir == key_return {
+			fmt.Println("You can't go this direction")
+			fmt.Println("Enter other arrow keys")
+		}
+
+		if not_this_dir != key_return && key_return != 0{
 			return key_return
 		}else{
-			fmt.Println("You can't go this direction, or you pressed a wrong key")
+
 		}
 	}
+    return 5
 }

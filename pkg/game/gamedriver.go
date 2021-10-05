@@ -1,0 +1,6 @@
+package game
+
+newGame() {
+    initTerm()
+}
+

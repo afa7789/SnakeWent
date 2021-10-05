@@ -187,57 +187,53 @@ func initTerm(){
 func receiveInput(not_this_dir int) int {
 
 	fmt.Println("Enter arrow keys, r to restart, or press ESC button to quit")
-    keyPressListenerLoop:
-	for {
-        fmt.Println("entered for")
+    keyPressListenerLoop: for {
 		var key_return int = 0
 		switch ev := term.PollEvent(); ev.Type {
 			case term.EventKey:
-                fmt.Println("event key")
 				switch ev.Key {
 					case term.KeyEsc:
-                        fmt.Print("est")
-						key_return = ESC
+    					key_return = ESC
                         break keyPressListenerLoop
 					case term.KeyArrowUp:
-                        fmt.Print("upt")
 						key_return = ARROW_UP
 						break			
 					case term.KeyArrowDown:
-                        fmt.Print("down")
+                        
 						key_return = ARROW_DOWN
 						break					
 					case term.KeyArrowLeft:
 						key_return = ARROW_LEFT
-                        fmt.Print("esleftt")
 						break				
 					case term.KeyArrowRight:
 						key_return = ARROW_RIGHT
-                        fmt.Print("right")
 						break
 					default:
-                        fmt.Print("testes")
 						if ev.Ch == 114{
-                            fmt.Print("r")
-							key_return = R_KEY
+                            key_return = R_KEY
 							break
 						}else{
-							fmt.Println("delta Enter arrow keys, r to restart, or press ESC button to quit")
-						}
+                            fmt.Println("You pressed an invalid key")
+							fmt.Println("Enter arrow keys, r to restart, or press ESC button to quit")
+			    		}
 				}
-                fmt.Println("\n algooo",key_return)
 				break
 			case term.EventError:
 				panic(ev.Err)
 		}
 
-		if not_this_dir != key_return{
+		if not_this_dir == key_return {
+			fmt.Println("You can't go this direction")
+            fmt.Println("Enter other arrow keys")
+		}
+
+		if not_this_dir != key_return && key_return != 0{
 			return key_return
 		}else{
-			fmt.Println("You can't go this direction, or you pressed a wrong key")
+
 		}
 	}
-    return 0
+    return 5
 }
 
 func main(){
@@ -245,6 +241,9 @@ func main(){
     for {
         i := receiveInput(1)
         fmt.Println("aqui: ",i)
+        if i==5 {
+            break
+        }
     }
     term.Close()
 }
