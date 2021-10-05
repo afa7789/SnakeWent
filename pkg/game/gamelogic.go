@@ -57,6 +57,7 @@ func moveSnake(n *node,p position) {
 	n.pos = p
 }
 
+// Has Eaten ,receives position and food nodeList
 func hasEaten( p position , fs nodeList ) bool{
 
 	has_haten := false

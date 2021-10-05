@@ -1,5 +1,6 @@
 package game
 
+// Create new GameState and Start Game
 func NewGame() {
     // initTerm()
 	// g := createGameState()

@@ -3,6 +3,6 @@ package main
 import "github.com/afa7789/SnakeWent/pkg/game"
 
 func main() {
-	// Game Logic
+	// Game Start
 	game.NewGame()
 }

@@ -14,10 +14,12 @@ const ( // this are used to drawn the board
 	rKey = 6 
 )
 
+// clear the terminal
 func reset() {
 	term.Sync() // cosmestic purpose
 }
 
+// initialize the usage of TermBox
 func initTerm(){
 	err := term.Init()
 	if err != nil {
@@ -25,6 +27,7 @@ func initTerm(){
 	}
 }
 
+// Uses Termbox Library to receive the keyboard inputs arrowkeys to designate the new direction
 func receiveInput(not_this_dir int) int {
 
 	fmt.Println("Enter arrow keys, r to restart, or press esc button to quit")
