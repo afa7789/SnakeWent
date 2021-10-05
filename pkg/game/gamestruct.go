@@ -108,3 +108,21 @@ func (n *node) changeNextNode(w *node) *node{
 	n.nextNode = w;
 	return previousNode;
 }
+
+// this returns an zeroed gameState
+func createGameSate() gameState{
+	var g = gameState{
+		board : nil
+		height      0 			// board height
+		width       0 			// board width
+		score       0 			// game score ( number of fruits eaten + something )
+		round       0 			// actual round number ( numer of iterations )
+		snakeLength 0 			// length of the snake ( baselength + number of eaten stuff)
+		snakeHead  : position{
+			0,0
+		}		// position of the snakeHead
+		snakeList  : nil 		// nodeList of snake
+		foodList : nil				// nodeList of food
+	}
+	return g
+}
