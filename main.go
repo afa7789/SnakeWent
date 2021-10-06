@@ -9,5 +9,5 @@ func main() {
 	// Game Start
 	width  := flag.Int("width", 10, "width, horizontal size")
 	height := flag.Int("height", 10, "height, vertical size")
-	game.NewGame(width,height)
+	game.NewGame(*width,*height)
 }

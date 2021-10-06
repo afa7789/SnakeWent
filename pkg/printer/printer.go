@@ -50,7 +50,7 @@ func PrintString( str string ){
 func PrintSignedIntTwoDimensionsArray( sample * [][]int  ){
     for _, row := range *sample {
         for _, val := range row {
-            fmt.Print(string(val))
+            fmt.Print(string(val),"")
         }
 		fmt.Printf("\n")
     }

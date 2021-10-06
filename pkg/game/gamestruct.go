@@ -54,7 +54,7 @@ type gameState struct {
 // print game state boards
 func (g *gameState) Print(b bool){
 	stringForPrint := "Game State\n"
-	stringForPrint += "Height: " + strconv.Itoa(g.height) + " - Width: " + strconv.Itoa(g.width) + "\n"
+	// stringForPrint += "Height: " + strconv.Itoa(g.height) + " - Width: " + strconv.Itoa(g.width) + "\n"
 	stringForPrint += "Score: " + strconv.Itoa(g.score) + " - Width: " + strconv.Itoa(g.round) + "\n"
 	printer.PrintString(stringForPrint)
 	if b {
@@ -145,11 +145,11 @@ func createGameState(h,w int) gameState{
 	g := createGameStateZero()
 	g.height = h
 	g.width = w
-	board := make([][]int, h)
+	board := make([][]int, h + 2)
 	for i := range board {
-		board[i] = make([]int, w)
+		board[i] = make([]int, w + 2)
 		for j := range board[i] {
-			board[i][j] = 183
+			board[i][j] = dot
 		}
 	}
 	g.board = &board

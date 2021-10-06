@@ -8,6 +8,7 @@ func NewGame(w,h int) {
 	initTerm()
 	FirstLogic()
 	g := createGameState(h,w)
+	fillBorders(g.board,g.width,g.height)
 	g.Print(true)
 }
 
