@@ -118,7 +118,7 @@ func (n *node) changeNextNode(w *node) *node{
 }
 
 // this returns an zeroed gameState
-func createGameState() gameState{
+func createGameStateZero() gameState{
 
 	nl1 := createNodeList(nil,nil)
 	nl2 := createNodeList(nil,nil)
@@ -137,6 +137,21 @@ func createGameState() gameState{
 		snakeList: nl1,
 		foodList: nl2,
 	}
+}
+
+func createGameState(h,w int) gameState{
+	g := createGameStateZero()
+	g.height = h
+	g.width = w
+	board := make([][]int, h)
+	for i := range board {
+		board[i] = make([]int, w)
+		for j := range board[i] {
+			board[i][j] = 183
+		}
+	}
+	g.board = &board
+	return g
 }
 
 func intToString(i int) string{

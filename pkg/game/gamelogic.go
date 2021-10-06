@@ -58,7 +58,7 @@ func moveSnake(n *node,p position) {
 }
 
 // Has Eaten ,receives position and food nodeList
-func hasEaten( p position , fs nodeList ) bool{
+func hasEaten( p position , fs nodeList , score *int) bool{
 
 	has_haten := false
 	// nodes for iteration
@@ -78,6 +78,7 @@ func hasEaten( p position , fs nodeList ) bool{
 	if has_haten {
 		// remove food Node
 		n_previous.nextNode = n_iter.nextNode
+		*score += 10
 	}
 	// i believe the garbage collector will collecter previous iter.
 
@@ -96,8 +97,11 @@ func increaseSnakeSize(pInt * int, snakeList * nodeList){
 	snakeList.lastNode = n
 }
 
-func addFood() {
+func addFood(foodList * nodeList){
 	// add a food to the nodeList of foods.
+	n := createNode("food",0,0,nil)
+	foodList.lastNode.nextNode = n
+	foodList.lastNode = n
 }
 
 func headIsReturning() bool{
@@ -105,22 +109,38 @@ func headIsReturning() bool{
 	return false
 }
 
-func checkSelfHit() bool{
+func checkSelfHit(actual_pos position, snakeList * nodeList) bool{
 	// check if snaker hit itself, if it does it has to lose.
+	var n_iter *node = snakeList.firstNode
+
+	for ;n_iter !=nil;n_iter = n_iter.nextNode {
+		// check if next position is one of the foods position
+		if n_iter.pos == actual_pos {
+			return true
+		}
+	}
+
 	return false
 }
 
 // check if next position hit's border
-func checkBorderHit(i ,j,width,height int) bool{
+func checkBorderHit(actual_pos position,width,height int) bool{
 	return false
 }
 
-func checkIfNextPositionIsOK() bool{
-	return false
+// check if next position is a hit
+func checkIfNextPositionIsOK(actual_pos position, snakeList * nodeList, w,h int) bool{
+	if checkBorderHit(actual_pos,w,h) || checkSelfHit(actual_pos, snakeList)  {
+		return false
+	}
+	return true
 }
 
-func roundEnding(){
+// roundEnding, not sure what'else do
+func roundEnding(round,score *int){
 	// increase score for one more round
+	*score += 1
+	*round += 1
 	// not sure what else
 }
 
@@ -128,7 +148,7 @@ func (g gameState) roundIteration() bool{
 	// receive position
 	pos := receivePosition(g.snakeHead,g.snakeList.firstNode.nextNode.pos); // new position
 	// see if has eaten, grow snake if eaten
-	if hasEaten( pos, g.foodList ) {
+	if hasEaten( pos, g.foodList , &g.score) {
 		increaseSnakeSize(&g.snakeLength,&g.snakeList)
 	}
 	// move snake
@@ -140,8 +160,8 @@ func (g gameState) roundIteration() bool{
 	// check if it's a valid position.
 	// not snake body, not wall
 	if checkIfNextPositionIsOK() {
-	// if ok , go next round
-		roundEnding()
+		// if ok , go next round
+		roundEnding(&g.round,&g.score)
 		r = true
 	}else{
 		r = false

@@ -1,8 +1,13 @@
 package main
 
-import "github.com/afa7789/SnakeWent/pkg/game"
+import (
+	"github.com/afa7789/SnakeWent/pkg/game"
+	"flag"
+)
 
 func main() {
 	// Game Start
-	game.NewGame()
+	width  := flag.Int("width", 10, "width, horizontal size")
+	height := flag.Int("height", 10, "height, vertical size")
+	game.NewGame(width,height)
 }
