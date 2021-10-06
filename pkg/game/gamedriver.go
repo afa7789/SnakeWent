@@ -8,7 +8,6 @@ func NewGame(w,h int) {
 	initTerm()
 	FirstLogic()
 	g := createGameState(h,w)
-
-	g.Print()
+	g.Print(true)
 }
 

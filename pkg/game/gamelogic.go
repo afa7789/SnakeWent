@@ -159,7 +159,7 @@ func (g gameState) roundIteration() bool{
 
 	// check if it's a valid position.
 	// not snake body, not wall
-	if checkIfNextPositionIsOK() {
+	if checkIfNextPositionIsOK(pos,&g.snakeList,g.width,g.height) {
 		// if ok , go next round
 		roundEnding(&g.round,&g.score)
 		r = true

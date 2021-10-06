@@ -52,12 +52,14 @@ type gameState struct {
 
 // GAME STATE
 // print game state boards
-func (g *gameState) Print(){
+func (g *gameState) Print(b bool){
 	stringForPrint := "Game State\n"
 	stringForPrint += "Height: " + strconv.Itoa(g.height) + " - Width: " + strconv.Itoa(g.width) + "\n"
 	stringForPrint += "Score: " + strconv.Itoa(g.score) + " - Width: " + strconv.Itoa(g.round) + "\n"
 	printer.PrintString(stringForPrint)
-	// printer.PrintSignedIntTwoDimensionsArray( g.board )
+	if b {
+		printer.PrintSignedIntTwoDimensionsArray( g.board )
+	}
 }
 
 ///NODE FUNCTIONS
