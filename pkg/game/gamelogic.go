@@ -1,7 +1,7 @@
 package game
 
 // receivePosition, receives from keyboard key arrow and returns new pos for game state.
-func receivePosition(actual_pos,p_node_after_head position) position{
+func receivePosition(actual_pos, p_node_after_head position) position {
 
 	// ver direção que está , x1 cabeça, x2 nodo seguinte
 	// baixo x1 - x2 = 0 , y1 - y2 = -1
@@ -13,13 +13,13 @@ func receivePosition(actual_pos,p_node_after_head position) position{
 
 	var reject_actual_dir int
 
-	if x_diff == 1{
+	if x_diff == 1 {
 		reject_actual_dir = arrowRight
-	}else if x_diff == -1{
+	} else if x_diff == -1 {
 		reject_actual_dir = arrowLeft
-	}else if y_diff == 1{
+	} else if y_diff == 1 {
 		reject_actual_dir = arrowDown
-	}else if y_diff == -1{
+	} else if y_diff == -1 {
 		reject_actual_dir = arrowUp
 	}
 
@@ -29,43 +29,43 @@ func receivePosition(actual_pos,p_node_after_head position) position{
 	// new position reproposition
 	if received == arrowLeft {
 		actual_pos.X += 1
-	}else if received == arrowRight {
+	} else if received == arrowRight {
 		actual_pos.X -= 1
-	}else if received == arrowUp{
+	} else if received == arrowUp {
 		actual_pos.Y += 1
-	}else if received == arrowDown{
+	} else if received == arrowDown {
 		actual_pos.Y -= 1
 	}
 
 	// returns new position with addon/subtraction
 	return position{
-		X: actual_pos.X ,
-		Y: actual_pos.Y ,
+		X: actual_pos.X,
+		Y: actual_pos.Y,
 	}
 }
 
-// moveSnake receives nodeHead and it's next position, than call the subsequent nodes 
+// moveSnake receives nodeHead and it's next position, than call the subsequent nodes
 // with the actual position of it's parent for change.
-func moveSnake(n *node,p position) {
+func moveSnake(n *node, p position) {
 	// checks if node pointer is nill,, return empty if it is
 	if n == nil {
 		return
 	}
 	// call this function for the next node with actual position
-	moveSnake(n.nextNode,n.pos)
+	moveSnake(n.nextNode, n.pos)
 	// change the actual position for next position.
 	n.pos = p
 }
 
 // Has Eaten ,receives position and food nodeList
-func hasEaten( p position , fs nodeList , score *int) bool{
+func hasEaten(p position, fs nodeList, score *int) bool {
 
 	has_haten := false
 	// nodes for iteration
 	var n_iter *node = fs.firstNode
 	var n_previous *node = nil
 
-	for ;n_iter !=nil;n_iter = n_iter.nextNode {
+	for ; n_iter != nil; n_iter = n_iter.nextNode {
 		// check if next position is one of the foods position
 		if n_iter.pos == p {
 			has_haten = true
@@ -86,34 +86,34 @@ func hasEaten( p position , fs nodeList , score *int) bool{
 }
 
 // IncreaseSnakeSize
-// if it is increase snake size 
+// if it is increase snake size
 // and add a node to it's last node.
 // change last node to new last node.
-func increaseSnakeSize(pInt * int, snakeList * nodeList){
-	*pInt += 1;
-	str := "Snake"+intToString(*pInt);
-	n := createNode(str,0,0,nil)
+func increaseSnakeSize(pInt *int, snakeList *nodeList) {
+	*pInt += 1
+	str := "Snake" + intToString(*pInt)
+	n := createNode(str, 0, 0, nil)
 	snakeList.lastNode.nextNode = n
 	snakeList.lastNode = n
 }
 
-func addFood(foodList * nodeList){
+func addFood(foodList *nodeList) {
 	// add a food to the nodeList of foods.
-	n := createNode("food",0,0,nil)
+	n := createNode("food", 0, 0, nil)
 	foodList.lastNode.nextNode = n
 	foodList.lastNode = n
 }
 
-func headIsReturning() bool{
+func headIsReturning() bool {
 	// check next node from head position , if it's the same from next, if it is can't allow it for next pos.
 	return false
 }
 
-func checkSelfHit(actual_pos position, snakeList * nodeList) bool{
+func checkSelfHit(actual_pos position, snakeList *nodeList) bool {
 	// check if snaker hit itself, if it does it has to lose.
 	var n_iter *node = snakeList.firstNode
 
-	for ;n_iter !=nil;n_iter = n_iter.nextNode {
+	for ; n_iter != nil; n_iter = n_iter.nextNode {
 		// check if next position is one of the foods position
 		if n_iter.pos == actual_pos {
 			return true
@@ -124,52 +124,52 @@ func checkSelfHit(actual_pos position, snakeList * nodeList) bool{
 }
 
 // check if next position hit's border
-func checkBorderHit(actual_pos position,width,height int) bool{
+func checkBorderHit(actual_pos position, width, height int) bool {
 	return false
 }
 
 // check if next position is a hit
-func checkIfNextPositionIsOK(actual_pos position, snakeList * nodeList, w,h int) bool{
-	if checkBorderHit(actual_pos,w,h) || checkSelfHit(actual_pos, snakeList)  {
+func checkIfNextPositionIsOK(actual_pos position, snakeList *nodeList, w, h int) bool {
+	if checkBorderHit(actual_pos, w, h) || checkSelfHit(actual_pos, snakeList) {
 		return false
 	}
 	return true
 }
 
 // roundEnding, not sure what'else do
-func roundEnding(round,score *int){
+func roundEnding(round, score *int) {
 	// increase score for one more round
 	*score += 1
 	*round += 1
 	// not sure what else
 }
 
-func (g gameState) roundIteration() bool{
+func (g gameState) roundIteration() bool {
 	// receive position
-	pos := receivePosition(g.snakeHead,g.snakeList.firstNode.nextNode.pos); // new position
+	pos := receivePosition(g.snakeHead, g.snakeList.firstNode.nextNode.pos) // new position
 	// see if has eaten, grow snake if eaten
-	if hasEaten( pos, g.foodList , &g.score) {
-		increaseSnakeSize(&g.snakeLength,&g.snakeList)
+	if hasEaten(pos, g.foodList, &g.score) {
+		increaseSnakeSize(&g.snakeLength, &g.snakeList)
 	}
 	// move snake
-	moveSnake(g.snakeList.firstNode,pos)
+	moveSnake(g.snakeList.firstNode, pos)
 	g.snakeHead = pos
 
 	r := false // returned bool
 
 	// check if it's a valid position.
 	// not snake body, not wall
-	if checkIfNextPositionIsOK(pos,&g.snakeList,g.width,g.height) {
+	if checkIfNextPositionIsOK(pos, &g.snakeList, g.width, g.height) {
 		// if ok , go next round
-		roundEnding(&g.round,&g.score)
+		roundEnding(&g.round, &g.score)
 		r = true
-	}else{
+	} else {
 		r = false
 	}
 
 	// if not ok, end game.
-	// draw 
-	fillAll()
+	// draw
+	fillAll(g)
 
 	return r
 }

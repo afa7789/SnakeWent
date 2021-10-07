@@ -77,8 +77,6 @@ keyPressListenerLoop:
 
 		if not_this_dir != key_return && key_return != 0 {
 			return key_return
-		} else {
-
 		}
 	}
 	return 5
