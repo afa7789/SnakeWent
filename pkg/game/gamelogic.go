@@ -2,15 +2,13 @@ package game
 
 import (
 	"math/rand"
-
-	"github.com/afa7789/SnakeWent/pkg/printer"
 )
 
 // receivePosition, receives from keyboard key arrow and returns new pos for game state.
 func receivePosition(actual_pos, p_after position) position {
 
-	actual_pos.Print()
-	p_after.Print()
+	// actual_pos.Print()
+	// p_after.Print()
 	// ver direção que está , x1 cabeça, x2 nodo seguinte
 	// baixo x1 - x2 = 0 , y1 - y2 = -1
 	// cima x1 - x2 = 0, y1 - y2 = 1
@@ -18,29 +16,23 @@ func receivePosition(actual_pos, p_after position) position {
 	// direita x1 - x2 = -1 , y1 - y2 = 0
 	x_diff := actual_pos.X - p_after.X
 	y_diff := actual_pos.Y - p_after.Y
-	printer.PrintString("\n\t" + intToString(x_diff) + "\n")
-	printer.PrintString(intToString(y_diff) + "\n")
+	// printer.PrintString("\n\t" + intToString(x_diff) + "\n")
+	// printer.PrintString(intToString(y_diff) + "\n")
 
 	var reject_actual_dir int
 
 	if x_diff == 1 {
-		printer.PrintString("nao pode esquerda\n")
-
+		// printer.PrintString("nao pode esquerda\n")
 		reject_actual_dir = arrowLeft
 	} else if x_diff == -1 {
-		printer.PrintString("nao pode direita\n")
-
+		// printer.PrintString("nao pode direita\n")
 		reject_actual_dir = arrowRight
 	} else if y_diff == 1 {
-
-		printer.PrintString("nao pode cima\n")
-
+		// printer.PrintString("nao pode cima\n")
 		reject_actual_dir = arrowUp
 	} else if y_diff == -1 {
-		printer.PrintString("nao pode baixo\n")
-
+		// printer.PrintString("nao pode baixo\n")
 		reject_actual_dir = arrowDown
-
 	}
 
 	// doesn't allow going to previous position, and receive next one
@@ -48,19 +40,16 @@ func receivePosition(actual_pos, p_after position) position {
 
 	// new position reproposition
 	if received == arrowLeft {
-		printer.PrintString("arrow left\n")
-
+		// printer.PrintString("arrow left\n")
 		actual_pos.X -= 1
 	} else if received == arrowRight {
-		printer.PrintString("arrow right\n")
+		// printer.PrintString("arrow right\n")
 		actual_pos.X += 1
 	} else if received == arrowUp {
-		printer.PrintString("arrow up\n")
-
+		// printer.PrintString("arrow up\n")
 		actual_pos.Y -= 1
 	} else if received == arrowDown {
-		printer.PrintString("arrow right\n")
-
+		// printer.PrintString("arrow right\n")
 		actual_pos.Y += 1
 	}
 
@@ -85,9 +74,8 @@ func moveSnake(n *node, p position) {
 }
 
 // Has Eaten ,receives position and food nodeList
-func hasEaten(p position, fs nodeList, score *int) bool {
+func hasEaten(p position, fs *nodeList, score *int) bool {
 
-	has_haten := false
 	// nodes for iteration
 	var n_iter *node = fs.firstNode
 	var n_previous *node = nil
@@ -95,25 +83,23 @@ func hasEaten(p position, fs nodeList, score *int) bool {
 	for ; n_iter != nil; n_iter = n_iter.nextNode {
 		// check if next position is one of the foods position
 		if n_iter.pos == p {
-			has_haten = true
-			break
+			// remove food Node
+			*score += 10
+			// verifica se ja saimos do primeiro nodo
+			if n_previous != nil {
+				n_previous.nextNode = n_iter.nextNode
+			} else {
+				// é o primeiro nodo que foi comido so pula a lista para o próximo e ignora o primeiro.
+				fs.firstNode = n_iter.nextNode
+			}
+
+			return true
 		}
 		n_previous = n_iter
 	}
 
-	//has eaten is true, than delete the node from the list
-	if has_haten {
-		// remove food Node
-		if n_previous != nil {
-			n_previous.nextNode = n_iter.nextNode
-			*score += 10
-		} else {
-			fs.firstNode = nil
-		}
-	}
 	// i believe the garbage collector will collecter previous iter.
-
-	return has_haten
+	return false
 }
 
 // IncreaseSnakeSize
@@ -128,18 +114,22 @@ func increaseSnakeSize(pInt *int, snakeList *nodeList) {
 	snakeList.lastNode = n
 }
 
+// add a food to the nodeList of foods.
 func addFood(foodList *nodeList, w, h int) {
-	// add a food to the nodeList of foods.
-	printer.PrintString("teste")
 	n := createNode("food", rand.Intn(w-1)+1, rand.Intn(h-1)+1, nil)
 
 	if foodList.firstNode != nil {
-		foodList.lastNode.nextNode = n
+		if foodList.lastNode == nil {
+			foodList.firstNode.nextNode = n
+			foodList.lastNode = n
+		} else {
+			foodList.lastNode.nextNode = n
+		}
 		foodList.lastNode = n
 	} else {
 		foodList.firstNode = n
 	}
-	foodList.Print()
+
 }
 
 // func headIsReturning() bool { CANCELED , made in first function
@@ -182,29 +172,25 @@ func roundEnding(round, score *int) bool {
 	if *round%5 == 0 {
 		*score = *score + 1
 	}
-	// each 6 rounds add food
-	if *round%6 == 0 {
-		printer.PrintString("round")
-		printer.PrintString(intToString(*round))
-		return true
-	}
-	return false
+	// on random number
+	var random1 int = rand.Intn(*score+1) + *round
+	var random2 int = rand.Intn(int(*score/6)+1) + 5
+	return random1%random2 == 0
 }
 
 func (g gameState) roundIteration() (bool, gameState) {
 	// receive position
 	pos := receivePosition(g.snakeList.firstNode.pos, g.snakeList.firstNode.nextNode.pos) // new position
-	printer.PrintString("recebi a posição")
-	pos.Print()
+
 	// see if has eaten, grow snake if eaten
-	if hasEaten(pos, g.foodList, g.score) {
+	if hasEaten(pos, &g.foodList, g.score) {
 		increaseSnakeSize(g.snakeLength, &g.snakeList)
 	}
 	// move snake
 	moveSnake(g.snakeList.firstNode, pos)
 	g.snakeHead = g.snakeList.firstNode.pos
 
-	r := false // returned bool
+	r := false //returned bool
 
 	// check if it's a valid position.
 	// not snake body, not wall
@@ -212,7 +198,7 @@ func (g gameState) roundIteration() (bool, gameState) {
 		// if ok , go next round
 		if roundEnding(g.round, g.score) {
 			addFood(&g.foodList, g.width, g.height)
-			g.foodList.Print()
+			// g.foodList.Print()
 		}
 		r = true
 	} else {
