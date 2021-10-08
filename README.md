@@ -24,7 +24,7 @@ possible to be runned with or without the flags, without it you will be running 
 `go run main.go --width=20 --height=10`
 
 
-## ABout
+## About
 
 This was made with the objective of showing capabilities of encapsulating and reutilization of code.
 So this don't have the best performance needed.
