@@ -128,15 +128,18 @@ func increaseSnakeSize(pInt *int, snakeList *nodeList) {
 	snakeList.lastNode = n
 }
 
-func addFood(foodList nodeList, w, h int) {
+func addFood(foodList *nodeList, w, h int) {
 	// add a food to the nodeList of foods.
+	printer.PrintString("teste")
 	n := createNode("food", rand.Intn(w-1)+1, rand.Intn(h-1)+1, nil)
+
 	if foodList.firstNode != nil {
 		foodList.lastNode.nextNode = n
 		foodList.lastNode = n
+	} else {
+		foodList.firstNode = n
 	}
-	foodList.firstNode = n
-
+	foodList.Print()
 }
 
 // func headIsReturning() bool { CANCELED , made in first function
@@ -208,7 +211,8 @@ func (g gameState) roundIteration() bool {
 	if checkIfNextPositionIsOK(pos, &g.snakeList, g.width, g.height) {
 		// if ok , go next round
 		if roundEnding(g.round, g.score) {
-			addFood(g.foodList, g.width, g.height)
+			addFood(&g.foodList, g.width, g.height)
+			g.foodList.Print()
 		}
 		r = true
 	} else {
