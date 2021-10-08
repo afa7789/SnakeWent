@@ -6,7 +6,7 @@ import (
 
 // Hello World, é uma função de Teste para testar blibioteca.
 func HelloWorld() {
-	fmt.Println("\tThis is Snake Went a dubious quality game\n")
+	fmt.Println("This is Snake Went a dubious quality game\n")
 }
 
 func checkCharacter(i int) {

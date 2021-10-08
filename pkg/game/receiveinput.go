@@ -13,8 +13,8 @@ const ( // this are used to drawn the board
 	arrowDown  = 2
 	arrowLeft  = 3
 	arrowRight = 4
-	esc        = 5
-	rKey       = 6
+	esc        = 5 // esc
+	rKey       = 6 // r
 )
 
 // clear the terminal
@@ -33,7 +33,7 @@ func initTerm() {
 // Uses Termbox Library to receive the keyboard inputs arrowkeys to designate the new direction
 func receiveInput(not_this_dir int) int {
 
-	fmt.Println("Enter arrow keys, r to restart, or press esc button to quit")
+	fmt.Println("Enter arrow keys, or press esc button to quit")
 keyPressListenerLoop:
 	for {
 		var key_return int = 0
@@ -57,13 +57,14 @@ keyPressListenerLoop:
 				key_return = arrowRight
 				break
 			default:
-				if ev.Ch == 114 {
-					key_return = rKey
-					break
-				} else {
-					fmt.Println("You pressed an invalid key")
-					fmt.Println("Enter arrow keys, r to restart, or press esc button to quit")
-				}
+				// if ev.Ch == 114 {
+				// 	key_return = rKey
+				// 	break
+				// } else {
+				fmt.Println("You pressed an invalid key")
+				fmt.Println("Enter arrow keys")
+				// }
+				break
 			}
 			break
 		case term.EventError:

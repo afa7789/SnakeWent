@@ -13,7 +13,12 @@ func NewGame(w, h int) {
 		if i {
 			printer.PrintString("aqui ainda é true o retornado\n")
 		} else {
-			printer.PrintString("Hit Wall or Self\n")
+			reset()
+			FirstLogic()
+			g.Print(true)
+			// printer.PrintString("Hit Wall or Self\n")
+			printer.PrintString("Game Ended")
 		}
 	}
+
 }

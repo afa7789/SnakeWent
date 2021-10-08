@@ -2,6 +2,8 @@ package game
 
 import (
 	"math/rand"
+
+	"github.com/afa7789/SnakeWent/pkg/printer"
 )
 
 // receivePosition, receives from keyboard key arrow and returns new pos for game state.
@@ -51,6 +53,10 @@ func receivePosition(actual_pos, p_after position) position {
 	} else if received == arrowDown {
 		// printer.PrintString("arrow right\n")
 		actual_pos.Y += 1
+	} else if received == esc {
+		printer.PrintString("arrow right\n")
+	} else if received == rKey {
+		printer.PrintString("arrow right\n")
 	}
 
 	// returns new position with addon/subtraction
@@ -153,12 +159,14 @@ func checkSelfHit(actual_pos position, snakeList *nodeList) bool {
 
 // check if next position hit's border MISSING
 func checkBorderHit(actual_pos position, width, height int) bool {
+	if actual_pos.X == 0 || actual_pos.X == width+1 || actual_pos.Y == 0 || actual_pos.Y == height+1 {
+		return true
+	}
 	return false
 }
 
 // check if next position is a hit
 func checkIfNextPositionIsOK(actual_pos position, snakeList *nodeList, w, h int) bool {
-
 	if checkBorderHit(actual_pos, w, h) || checkSelfHit(actual_pos, snakeList) {
 		return false
 	}
@@ -174,8 +182,7 @@ func roundEnding(round, score *int) bool {
 	}
 	// on random number
 	var random1 int = rand.Intn(*score+1) + *round
-	var random2 int = rand.Intn(int(*score/6)+1) + 5
-	return random1%random2 == 0
+	return random1%(6+int(*score/10)) == 0
 }
 
 func (g gameState) roundIteration() (bool, gameState) {
@@ -202,12 +209,16 @@ func (g gameState) roundIteration() (bool, gameState) {
 		}
 		r = true
 	} else {
+		// hitted := false
 		r = false
 	}
 
 	// if not ok, end game.
 	// draw
 	fillAll(g)
+	if !r {
+		(*g.board)[pos.Y][pos.X] = meshRectangle
+	}
 
 	return r, g
 }
