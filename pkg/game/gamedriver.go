@@ -14,7 +14,7 @@ func NewGame(w, h int) {
 		}
 		// g.snakeList.Print()
 		g.Print(true)
-		i = g.roundIteration()
+		i, g = g.roundIteration()
 		if i {
 			printer.PrintString("aqui ainda é true o retornado\n")
 		} else {

@@ -191,7 +191,7 @@ func roundEnding(round, score *int) bool {
 	return false
 }
 
-func (g gameState) roundIteration() bool {
+func (g gameState) roundIteration() (bool, gameState) {
 	// receive position
 	pos := receivePosition(g.snakeList.firstNode.pos, g.snakeList.firstNode.nextNode.pos) // new position
 	printer.PrintString("recebi a posição")
@@ -223,5 +223,5 @@ func (g gameState) roundIteration() bool {
 	// draw
 	fillAll(g)
 
-	return r
+	return r, g
 }
