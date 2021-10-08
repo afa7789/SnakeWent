@@ -1,6 +1,10 @@
 package game
 
-import "github.com/afa7789/SnakeWent/pkg/printer"
+import (
+	"math/rand"
+
+	"github.com/afa7789/SnakeWent/pkg/printer"
+)
 
 // receivePosition, receives from keyboard key arrow and returns new pos for game state.
 func receivePosition(actual_pos, p_after position) position {
@@ -100,8 +104,12 @@ func hasEaten(p position, fs nodeList, score *int) bool {
 	//has eaten is true, than delete the node from the list
 	if has_haten {
 		// remove food Node
-		n_previous.nextNode = n_iter.nextNode
-		*score += 10
+		if n_previous != nil {
+			n_previous.nextNode = n_iter.nextNode
+			*score += 10
+		} else {
+			fs.firstNode = nil
+		}
 	}
 	// i believe the garbage collector will collecter previous iter.
 
@@ -120,11 +128,15 @@ func increaseSnakeSize(pInt *int, snakeList *nodeList) {
 	snakeList.lastNode = n
 }
 
-func addFood(foodList *nodeList) {
+func addFood(foodList nodeList, w, h int) {
 	// add a food to the nodeList of foods.
-	n := createNode("food", 0, 0, nil)
-	foodList.lastNode.nextNode = n
-	foodList.lastNode = n
+	n := createNode("food", rand.Intn(w-1)+1, rand.Intn(h-1)+1, nil)
+	if foodList.firstNode != nil {
+		foodList.lastNode.nextNode = n
+		foodList.lastNode = n
+	}
+	foodList.firstNode = n
+
 }
 
 // func headIsReturning() bool { CANCELED , made in first function
@@ -139,7 +151,6 @@ func checkSelfHit(actual_pos position, snakeList *nodeList) bool {
 	for ; n_iter != nil; n_iter = n_iter.nextNode {
 		// check if next position is one of the foods position
 		if n_iter.pos == actual_pos {
-			printer.PrintString("OIOI TO AQUI")
 			return true
 		}
 	}
@@ -147,7 +158,7 @@ func checkSelfHit(actual_pos position, snakeList *nodeList) bool {
 	return false
 }
 
-// check if next position hit's border
+// check if next position hit's border MISSING
 func checkBorderHit(actual_pos position, width, height int) bool {
 	return false
 }
@@ -162,11 +173,19 @@ func checkIfNextPositionIsOK(actual_pos position, snakeList *nodeList, w, h int)
 }
 
 // roundEnding, not sure what'else do
-func roundEnding(round, score *int) {
-	// increase score for one more round
-	*score += 1
-	*round += 1
-	// not sure what else
+func roundEnding(round, score *int) bool {
+	*round = *round + 1
+	// increase score each 5 rounds
+	if *round%5 == 0 {
+		*score = *score + 1
+	}
+	// each 6 rounds add food
+	if *round%6 == 0 {
+		printer.PrintString("round")
+		printer.PrintString(intToString(*round))
+		return true
+	}
+	return false
 }
 
 func (g gameState) roundIteration() bool {
@@ -175,8 +194,8 @@ func (g gameState) roundIteration() bool {
 	printer.PrintString("recebi a posição")
 	pos.Print()
 	// see if has eaten, grow snake if eaten
-	if hasEaten(pos, g.foodList, &g.score) {
-		increaseSnakeSize(&g.snakeLength, &g.snakeList)
+	if hasEaten(pos, g.foodList, g.score) {
+		increaseSnakeSize(g.snakeLength, &g.snakeList)
 	}
 	// move snake
 	moveSnake(g.snakeList.firstNode, pos)
@@ -188,7 +207,9 @@ func (g gameState) roundIteration() bool {
 	// not snake body, not wall
 	if checkIfNextPositionIsOK(pos, &g.snakeList, g.width, g.height) {
 		// if ok , go next round
-		roundEnding(&g.round, &g.score)
+		if roundEnding(g.round, g.score) {
+			addFood(g.foodList, g.width, g.height)
+		}
 		r = true
 	} else {
 		r = false

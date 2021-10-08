@@ -43,9 +43,9 @@ type gameState struct {
 	board       *[][]int // board 2d array
 	height      int      // board height
 	width       int      // board width
-	score       int      // game score ( number of fruits eaten + something )
-	round       int      // actual round number ( numer of iterations )
-	snakeLength int      // length of the snake ( baselength + number of eaten stuff)
+	score       *int     // game score ( number of fruits eaten + something )
+	round       *int     // actual round number ( numer of iterations )
+	snakeLength *int     // length of the snake ( baselength + number of eaten stuff)
 	snakeHead   position // position of the snakeHead
 	snakeList   nodeList // nodeList of snake
 	foodList    nodeList // nodeList of food
@@ -56,7 +56,7 @@ type gameState struct {
 func (g *gameState) Print(b bool) {
 	stringForPrint := "Game State\n"
 	// stringForPrint += "Height: " + strconv.Itoa(g.height) + " - Width: " + strconv.Itoa(g.width) + "\n"
-	stringForPrint += "\tScore: " + strconv.Itoa(g.score) + " - Round: " + strconv.Itoa(g.round) + "\n"
+	stringForPrint += "\tScore: " + strconv.Itoa(*g.score) + " - Round: " + strconv.Itoa(*g.round) + "\n"
 	printer.PrintString(stringForPrint)
 	if b {
 		printer.PrintSignedIntTwoDimensionsArray(g.board)
@@ -142,9 +142,9 @@ func createGameStateZero() gameState {
 		board:       nil,
 		height:      0,
 		width:       0,
-		score:       0,
-		round:       0,
-		snakeLength: 0,
+		score:       nil,
+		round:       nil,
+		snakeLength: nil,
 		snakeHead: position{
 			X: 0,
 			Y: 0,
@@ -164,8 +164,12 @@ func createGameState(h, w int) gameState {
 	for i := range board {
 		board[i] = make([]int, w+2)
 	}
-
-	g.snakeLength = 3
+	round := 0
+	score := 0
+	length := 3
+	g.round = &round
+	g.score = &score
+	g.snakeLength = &length
 	var i int = (w + 1) / 2
 	var j int = (h + 1) / 2
 
