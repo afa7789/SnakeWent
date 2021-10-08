@@ -12,6 +12,20 @@ How the old game was:
 
 :exclamation: :warning: Disclaimer: This go code is not supposed to behave like the above. it is a gif of the older game
 
-## Running
+![Alt Text](resources/snakeCropped.gif)
 
-go run main.go
+## Running
+`git clone https://github.com/afa7789/SnakeWent`
+
+`cd SnakerWent`
+
+possible to be runned with or without the flags, without it you will be running with default size.
+
+`go run main.go --width=20 --height=10`
+
+
+## ABout
+
+This was made with the objective of showing capabilities of encapsulating and reutilization of code.
+So this don't have the best performance needed.
+And more, the way the input works was asked as the way it is, afteall this code is for a challenge made and this was one of the requisites of it.
