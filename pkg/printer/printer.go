@@ -6,12 +6,11 @@ import (
 
 // Hello World, é uma função de Teste para testar blibioteca.
 func HelloWorld() {
-	fmt.Println("This is Snake Went a dubious quality game\n")
-
+	fmt.Println("\tThis is Snake Went a dubious quality game\n")
 }
 
-func checkCharacter( i int ){
-	fmt.Printf("%v - %s \n",i,string(i));
+func checkCharacter(i int) {
+	fmt.Printf("%v - %s \n", i, string(i))
 }
 
 /*
@@ -43,15 +42,16 @@ func TestAscii() {
 	// checkCharacter('◬')
 }
 
-func PrintString( str string ){
-	fmt.Printf(str);
+func PrintString(str string) {
+	fmt.Printf("\t" + str)
 }
 
-func PrintSignedIntTwoDimensionsArray( sample * [][]int  ){
-    for _, row := range *sample {
-        for _, val := range row {
-            fmt.Print(string(val),"")
-        }
+func PrintSignedIntTwoDimensionsArray(sample *[][]int) {
+	for _, row := range *sample {
+		fmt.Print("\t")
+		for _, val := range row {
+			fmt.Print(string(val), "")
+		}
 		fmt.Printf("\n")
-    }
+	}
 }

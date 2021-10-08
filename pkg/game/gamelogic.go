@@ -1,15 +1,19 @@
 package game
 
-// receivePosition, receives from keyboard key arrow and returns new pos for game state.
-func receivePosition(actual_pos, p_node_after_head position) position {
+import "github.com/afa7789/SnakeWent/pkg/printer"
 
+// receivePosition, receives from keyboard key arrow and returns new pos for game state.
+func receivePosition(actual_pos, p_after position) position {
+
+	actual_pos.Print()
+	p_after.Print()
 	// ver direção que está , x1 cabeça, x2 nodo seguinte
 	// baixo x1 - x2 = 0 , y1 - y2 = -1
 	// cima x1 - x2 = 0, y1 - y2 = 1
 	// esquerda x1 - x2 = 1 , y1 - y2 = 0
 	// direita x1 - x2 = -1 , y1 - y2 = 0
-	x_diff := actual_pos.X - p_node_after_head.X
-	y_diff := actual_pos.Y - p_node_after_head.Y
+	x_diff := actual_pos.X - p_after.X
+	y_diff := actual_pos.Y - p_after.Y
 
 	var reject_actual_dir int
 
@@ -104,18 +108,19 @@ func addFood(foodList *nodeList) {
 	foodList.lastNode = n
 }
 
-func headIsReturning() bool {
-	// check next node from head position , if it's the same from next, if it is can't allow it for next pos.
-	return false
-}
+// func headIsReturning() bool { CANCELED , made in first function
+// 	// check next node from head position , if it's the same from next, if it is can't allow it for next pos.
+// 	return false
+// }
 
 func checkSelfHit(actual_pos position, snakeList *nodeList) bool {
 	// check if snaker hit itself, if it does it has to lose.
-	var n_iter *node = snakeList.firstNode
+	var n_iter *node = snakeList.firstNode.nextNode
 
 	for ; n_iter != nil; n_iter = n_iter.nextNode {
 		// check if next position is one of the foods position
 		if n_iter.pos == actual_pos {
+			printer.PrintString("OIOI TO AQUI")
 			return true
 		}
 	}
@@ -130,6 +135,7 @@ func checkBorderHit(actual_pos position, width, height int) bool {
 
 // check if next position is a hit
 func checkIfNextPositionIsOK(actual_pos position, snakeList *nodeList, w, h int) bool {
+
 	if checkBorderHit(actual_pos, w, h) || checkSelfHit(actual_pos, snakeList) {
 		return false
 	}
@@ -147,13 +153,14 @@ func roundEnding(round, score *int) {
 func (g gameState) roundIteration() bool {
 	// receive position
 	pos := receivePosition(g.snakeHead, g.snakeList.firstNode.nextNode.pos) // new position
+	printer.PrintString("recebi a posição")
+	pos.Print()
 	// see if has eaten, grow snake if eaten
 	if hasEaten(pos, g.foodList, &g.score) {
 		increaseSnakeSize(&g.snakeLength, &g.snakeList)
 	}
 	// move snake
 	moveSnake(g.snakeList.firstNode, pos)
-	g.snakeHead = pos
 
 	r := false // returned bool
 

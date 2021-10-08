@@ -56,7 +56,7 @@ type gameState struct {
 func (g *gameState) Print(b bool) {
 	stringForPrint := "Game State\n"
 	// stringForPrint += "Height: " + strconv.Itoa(g.height) + " - Width: " + strconv.Itoa(g.width) + "\n"
-	stringForPrint += "Score: " + strconv.Itoa(g.score) + " - Width: " + strconv.Itoa(g.round) + "\n"
+	stringForPrint += "\tScore: " + strconv.Itoa(g.score) + " - Round: " + strconv.Itoa(g.round) + "\n"
 	printer.PrintString(stringForPrint)
 	if b {
 		printer.PrintSignedIntTwoDimensionsArray(g.board)
@@ -66,12 +66,24 @@ func (g *gameState) Print(b bool) {
 ///NODE FUNCTIONS
 // print node, to see how it is
 func (n *node) Print() {
-	stringForPrint := "Node print"
-	stringForPrint += "Name: " + n.name + "\n"
-	stringForPrint += "X: " + strconv.Itoa(n.pos.X) + "\n"
-	stringForPrint += "Y: " + strconv.Itoa(n.pos.Y) + "\n"
+	stringForPrint := "Node print - "
+	stringForPrint += n.name + "\n"
+	stringForPrint += "\t X: " + strconv.Itoa(n.pos.X) + "\n"
+	stringForPrint += "\t Y: " + strconv.Itoa(n.pos.Y) + "\n\n"
 
 	printer.PrintString(stringForPrint)
+}
+
+func (p position) Print() {
+	printer.PrintString("[" + intToString(p.X) + "," + intToString(p.Y) + "]")
+}
+
+// nodeListTesting is created to make sure list
+func (nl nodeList) Print() {
+	n_iter := nl.firstNode
+	for ; n_iter != nil; n_iter = n_iter.nextNode {
+		n_iter.Print()
+	}
 }
 
 // create Node, return a new pointer to node
@@ -143,16 +155,32 @@ func createGameStateZero() gameState {
 }
 
 func createGameState(h, w int) gameState {
+	initTerm()
 	g := createGameStateZero()
 	g.height = h
 	g.width = w
+	// creating board
 	board := make([][]int, h+2)
 	for i := range board {
 		board[i] = make([]int, w+2)
 	}
+
+	g.snakeLength = 3
+	var i int = (h + 1) / 2
+	var j int = (w + 1) / 2
+
+	var n3 = createNode("Snake3", i, j, nil)
+	var n2 = createNode("Snake2", i+1, j, n3)
+	var n1 = createNode("Snake1", i+1, j+1, n2)
+	var nl = createNodeList(n1, n3)
+	g.snakeHead = position{
+		X: i + 1,
+		Y: j + 1,
+	}
+	g.snakeList = nl
 	g.board = &board
-	fillEmptyDots(g.board, h, w)
 	fillBorders(g.board, g.width, g.height)
+	fillAll(g)
 	return g
 }
 

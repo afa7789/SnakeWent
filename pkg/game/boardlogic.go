@@ -4,13 +4,15 @@ package game
 func fillBorders(sample *[][]int, width, height int) {
 	// vertical bars
 	for i := 1; i <= height; i++ {
+
 		(*sample)[i][0] = cornerVertical
-		(*sample)[i][height+1] = cornerVertical
+		(*sample)[i][width+1] = cornerVertical
 	}
 	//horizontal bars
 	for i := 1; i <= width; i++ {
+
 		(*sample)[0][i] = cornerHorizontal
-		(*sample)[width+1][i] = cornerHorizontal
+		(*sample)[height+1][i] = cornerHorizontal
 	}
 	//corners
 	(*sample)[0][0] = cornerUpLeft
@@ -32,10 +34,10 @@ func fillEmptyDots(sample *[][]int, height, width int) {
 
 // fillWithCharacterFromNode, reutilization of code
 func fillWithCharacterFromNode(sample *[][]int, nl nodeList, i int) {
-	//genericFunction to be used on fillFood and fillSnake
-	// while node != nil
-	// receive node , check it's position and change the gameboard Character to the snake one.
-	// change node pointer to next node
+	n_iter := nl.firstNode
+	for ; n_iter != nil; n_iter = n_iter.nextNode {
+		(*sample)[n_iter.pos.X][n_iter.pos.Y] = i
+	}
 }
 
 // fillFood, Change int on board for foods and check if adds more.

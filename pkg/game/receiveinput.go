@@ -81,3 +81,7 @@ keyPressListenerLoop:
 	}
 	return 5
 }
+
+func closeTerm() {
+	term.Close()
+}
