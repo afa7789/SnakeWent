@@ -166,18 +166,15 @@ func createGameState(h, w int) gameState {
 	}
 
 	g.snakeLength = 3
-	var i int = (h + 1) / 2
-	var j int = (w + 1) / 2
+	var i int = (w + 1) / 2
+	var j int = (h + 1) / 2
 
 	var n3 = createNode("Snake3", i, j, nil)
 	var n2 = createNode("Snake2", i+1, j, n3)
 	var n1 = createNode("Snake1", i+1, j+1, n2)
 	var nl = createNodeList(n1, n3)
-	g.snakeHead = position{
-		X: i + 1,
-		Y: j + 1,
-	}
 	g.snakeList = nl
+	g.snakeHead = g.snakeList.firstNode.pos
 	g.board = &board
 	fillBorders(g.board, g.width, g.height)
 	fillAll(g)

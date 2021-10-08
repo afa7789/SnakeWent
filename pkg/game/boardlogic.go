@@ -36,7 +36,7 @@ func fillEmptyDots(sample *[][]int, height, width int) {
 func fillWithCharacterFromNode(sample *[][]int, nl nodeList, i int) {
 	n_iter := nl.firstNode
 	for ; n_iter != nil; n_iter = n_iter.nextNode {
-		(*sample)[n_iter.pos.X][n_iter.pos.Y] = i
+		(*sample)[n_iter.pos.Y][n_iter.pos.X] = i
 	}
 }
 

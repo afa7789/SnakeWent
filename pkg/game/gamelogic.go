@@ -14,17 +14,29 @@ func receivePosition(actual_pos, p_after position) position {
 	// direita x1 - x2 = -1 , y1 - y2 = 0
 	x_diff := actual_pos.X - p_after.X
 	y_diff := actual_pos.Y - p_after.Y
+	printer.PrintString("\n\t" + intToString(x_diff) + "\n")
+	printer.PrintString(intToString(y_diff) + "\n")
 
 	var reject_actual_dir int
 
 	if x_diff == 1 {
-		reject_actual_dir = arrowRight
-	} else if x_diff == -1 {
+		printer.PrintString("nao pode esquerda\n")
+
 		reject_actual_dir = arrowLeft
+	} else if x_diff == -1 {
+		printer.PrintString("nao pode direita\n")
+
+		reject_actual_dir = arrowRight
 	} else if y_diff == 1 {
-		reject_actual_dir = arrowDown
-	} else if y_diff == -1 {
+
+		printer.PrintString("nao pode cima\n")
+
 		reject_actual_dir = arrowUp
+	} else if y_diff == -1 {
+		printer.PrintString("nao pode baixo\n")
+
+		reject_actual_dir = arrowDown
+
 	}
 
 	// doesn't allow going to previous position, and receive next one
@@ -32,13 +44,20 @@ func receivePosition(actual_pos, p_after position) position {
 
 	// new position reproposition
 	if received == arrowLeft {
-		actual_pos.X += 1
-	} else if received == arrowRight {
+		printer.PrintString("arrow left\n")
+
 		actual_pos.X -= 1
+	} else if received == arrowRight {
+		printer.PrintString("arrow right\n")
+		actual_pos.X += 1
 	} else if received == arrowUp {
-		actual_pos.Y += 1
-	} else if received == arrowDown {
+		printer.PrintString("arrow up\n")
+
 		actual_pos.Y -= 1
+	} else if received == arrowDown {
+		printer.PrintString("arrow right\n")
+
+		actual_pos.Y += 1
 	}
 
 	// returns new position with addon/subtraction
@@ -152,7 +171,7 @@ func roundEnding(round, score *int) {
 
 func (g gameState) roundIteration() bool {
 	// receive position
-	pos := receivePosition(g.snakeHead, g.snakeList.firstNode.nextNode.pos) // new position
+	pos := receivePosition(g.snakeList.firstNode.pos, g.snakeList.firstNode.nextNode.pos) // new position
 	printer.PrintString("recebi a posição")
 	pos.Print()
 	// see if has eaten, grow snake if eaten
@@ -161,6 +180,7 @@ func (g gameState) roundIteration() bool {
 	}
 	// move snake
 	moveSnake(g.snakeList.firstNode, pos)
+	g.snakeHead = g.snakeList.firstNode.pos
 
 	r := false // returned bool
 
