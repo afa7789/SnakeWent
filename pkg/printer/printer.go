@@ -6,11 +6,12 @@ import (
 
 // Hello World, é uma função de Teste para testar blibioteca.
 func HelloWorld() {
-	fmt.Println("This is Snake Went a dubious quality game\n")
+	fmt.Println("This is Snake Went a dubious quality game")
+	fmt.Println(" ")
 }
 
 func checkCharacter(i int) {
-	fmt.Printf("%v - %s \n", i, string(i))
+	fmt.Printf("%v - %s \n", i, fmt.Sprint(i))
 }
 
 /*
@@ -50,7 +51,7 @@ func PrintSignedIntTwoDimensionsArray(sample *[][]int) {
 	for _, row := range *sample {
 		fmt.Print("\t")
 		for _, val := range row {
-			fmt.Print(string(val), "")
+			fmt.Print(fmt.Sprint(val), "")
 		}
 		fmt.Printf("\n")
 	}

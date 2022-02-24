@@ -107,31 +107,6 @@ func createNodeList(n1 *node, n2 *node) nodeList {
 	}
 }
 
-// delete a node from a food node list.
-func deleteNodeWithEqualPos(nl nodeList, n *node) {
-	// receives node,
-	var n_iter = nl.firstNode
-
-	var n_previous *node = nil
-
-	for ; n_iter != nil; n_iter = n_iter.nextNode {
-		// comparar node
-		if n_iter == n {
-			break
-		}
-		n_previous = n_iter
-	}
-
-	n_previous.nextNode = n_iter.nextNode
-}
-
-// change nextNode, change the next node of a node, and returns the previous node it had pointed.
-func (n *node) changeNextNode(w *node) *node {
-	var previousNode *node = n.nextNode
-	n.nextNode = w
-	return previousNode
-}
-
 // this returns an zeroed gameState
 func createGameStateZero() gameState {
 

@@ -19,7 +19,10 @@ const ( // this are used to drawn the board
 
 // clear the terminal
 func reset() {
-	term.Sync() // cosmestic purpose
+	e := term.Sync() // cosmestic purpose
+	if e != nil {
+		panic("sync failed")
+	}
 }
 
 // initialize the usage of TermBox
@@ -41,21 +44,15 @@ keyPressListenerLoop:
 		case term.EventKey:
 			switch ev.Key {
 			case term.KeyEsc:
-				key_return = esc
 				break keyPressListenerLoop
 			case term.KeyArrowUp:
 				key_return = arrowUp
-				break
 			case term.KeyArrowDown:
-
 				key_return = arrowDown
-				break
 			case term.KeyArrowLeft:
 				key_return = arrowLeft
-				break
 			case term.KeyArrowRight:
 				key_return = arrowRight
-				break
 			default:
 				// if ev.Ch == 114 {
 				// 	key_return = rKey
@@ -64,9 +61,7 @@ keyPressListenerLoop:
 				fmt.Println("You pressed an invalid key")
 				fmt.Println("Enter arrow keys")
 				// }
-				break
 			}
-			break
 		case term.EventError:
 			panic(ev.Err)
 		}
@@ -81,8 +76,4 @@ keyPressListenerLoop:
 		}
 	}
 	return 5
-}
-
-func closeTerm() {
-	term.Close()
 }

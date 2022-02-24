@@ -1,3 +1,4 @@
+//nolint
 package game
 
 import "github.com/afa7789/SnakeWent/pkg/printer"
