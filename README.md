@@ -6,7 +6,7 @@ This Project is a Portfolio one, implementing a basic Golang version of the [Sna
 
 ![Alt Text](resources/snakeCropped.gif)
 
-:exclamation: :warning: Disclaimer: This go code is not lint, and doesn't have unit testing, this was my first go project.
+:exclamation: :warning: Disclaimer: This go code and doesn't have unit testing, this was my very first go project.
 
 
 ## Running
