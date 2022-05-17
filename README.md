@@ -2,6 +2,8 @@
 # SnakeWent
 This Project is a Portfolio one, implementing a basic Golang version of the [Snake game](https://en.wikipedia.org/wiki/Snake_(video_game_genre)) on the command line. 
 
+[The other Arthur](github.com/arthur404dev) helped me with the go mod init, this was my first golang code, so don't notice it kindda SUCKS. hahaha
+
 :exclamation: :warning: Disclaimer: This go code is not supposed to behave like the above. it is a gif of the older game
 
 ![Alt Text](resources/snakeCropped.gif)
